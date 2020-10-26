@@ -6,14 +6,14 @@
             <!-- ============================================================== -->
             <a style="color: black" class="navbar-brand" href="{{route('dashboard')}}">
                 <!-- <b class="logo-icon">
-                    <img src="{{ asset ('dashboard/plugins/images/logo-icon.png') }}" alt="homepage" />
-                </b>
+                    <img src="{{ asset ('dashboard/plugins/images/logo-ptpalem1.jpg') }}" alt="homepage" />
+                </b> --> 
                 <span class="logo-text">
-                    <img src="{{ asset ('dashboard/plugins/images/logo-text.png') }}" alt="homepage" />
-                </span> -->
-                MBEL
+                    <img src="{{ asset ('dashboard/plugins/images/PT. PALEM MEKAR UTAMA1.jpg') }}" alt="homepage" />
+                </span>
+                <!-- PT. PALEM MEKAR UTAMA -->
             </a>
-            <!-- ============================================================== -->
+            <!-- ==============================================================
             <!-- End Logo -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
