@@ -43,7 +43,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-@include('navbar.navbar')
+        @include('navbar.navbar')
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
@@ -51,9 +51,33 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="table-responsive">
+                                <table class="table no-wrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">No</th>
+                                            <th class="border-top-0">KaryawanID</th>                                           
+                                            <th class="border-top-0">Tanggal</th>
+                                            <th class="border-top-0">Status</th>
+                                            <th class="border-top-0">Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -62,17 +86,9 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
+
+
+
             <footer class="footer text-center"> 2020 © PT. PALEM MEKAR UTAMA </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

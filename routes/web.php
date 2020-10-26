@@ -18,6 +18,7 @@ Route::post('addDataKaryawan', [PublicController::class, 'addDataKaryawan'])->na
 
 
 Route::get('homedashboard', [PublicController::class, 'showDashboard'])->name('dashboard');
+Route::get('profile', [PublicController::class, 'showProfile'])->name('profile');
 Route::get('cuti', [PublicController::class, 'showCuti'])->name('cuti');
 Route::get('gaji', [PublicController::class, 'showGaji'])->name('gaji');
 Route::get('user', [PublicController::class, 'showUser'])->name('user');
@@ -39,8 +40,7 @@ Route::get('/blank', function () {
 
 Route::get('/profile', function () {
     return view('profile');
-});
-
+})->name('profile');
 
 Route::get('/fontawesome', function () {
     return view('fontawesome');
