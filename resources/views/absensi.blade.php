@@ -55,20 +55,36 @@
             <div class="container-fluid">
 
                 <div class="row">
+
                     <div class="col-md-12 col-lg-12 col-sm-12">
+                        @include('flash-message')
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                          Tambah Data Absensi
+                        </button><br><br>
                         <div class="white-box">
                             <div class="table-responsive">
                                 <table class="table no-wrap">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">No</th>
-                                            <th class="border-top-0">KaryawanID</th>                                           
+                                            <th class="border-top-0">Nama</th>                                           
                                             <th class="border-top-0">Tanggal</th>
                                             <th class="border-top-0">Status</th>
                                             <th class="border-top-0">Keterangan</th>
                                         </tr>
                                     </thead>
-                                    
+                                    @foreach($absensi as $userabsensi)
+                                    <tbody>
+                                        
+                                        <td>{{ $userabsensi->name }}</td>
+                                        <td>{{ $userabsensi->tanggal }}</td>
+                                        <td>{{ $userabsensi->status }}</td>
+                                        @if($userabsensi->keterangan != NULL)
+                                            <td>{{ $userabsensi->keterangan }}</td>
+                                        @else
+                                            <td> Tidak Ada Keterangan  </td>
+                                        @endif
+                                    </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -104,6 +120,59 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+
+<!-- Modal -->
+
+    <form action=" {{ route('addDataAbsensi')}} " method="post">
+    @csrf
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Cuti</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-row">
+
+                <div class="form-group col-md-6">
+                  <label for="nama">Nama </label>
+
+                  <select class="form-control" name="nama" id="nama">
+                   @foreach($karyawan as $karyawans) 
+                        <option value="{{ $karyawans->id }}">{{ $karyawans->name }}</option>
+                    @endforeach
+                </select>
+                </div>
+            
+
+                <div class="form-group col-md-6">
+                  <label for="tanggal_lahir">Tanggal </label>
+                  <input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="tanggal">
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="status">Status</label>
+                  <input type="text" class="form-control" name="status" id="status" placeholder="status">
+                </div> 
+
+                <div class="form-group col-md-6">
+                  <label for="status">Keterangan</label>
+                  <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="keterangan">
+                </div>
+
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </form>
+
     <script src="{{ asset ('dashboard/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ asset ('dashboard/plugins/bower_components/popper.js/dist/umd/popper.min.js') }}"></script>

@@ -43,7 +43,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-@include('navbar.navbar')
+        @include('navbar.navbar')
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
@@ -55,19 +55,31 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
+
+                    <div class="col-md-12 col-lg-12 col-sm-12"> 
+                        @include('flash-message')
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                          Tambah Data Cuti
+                        </button><br><br>
                         <div class="white-box">
                             <div class="table-responsive">
                                 <table class="table no-wrap">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">No</th>                                           
-                                            <th class="border-top-0">KaryawanID</th>
+                                            <th class="border-top-0">Nama</th>
                                             <th class="border-top-0">Tanggal</th>
                                             <th class="border-top-0">Keterangan</th>
                                         </tr>
                                     </thead>
-                                    
+                                    @foreach($cuti as $usercuti)
+                                    <tbody>
+                                        
+                                        <td> {{ $usercuti->name }} </td>
+                                        <td>{{ $usercuti->tanggal }} </td>
+                                        <td>{{ $usercuti->keterangan }} </td>
+
+                                    </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -115,6 +127,52 @@
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <form action=" {{ route('addDataCuti') }} " method="post">
+    @csrf
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Karyawan</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="nama">Nama</label>
+
+                    <select class="form-control" name="nama" id="nama">
+                        @foreach($karyawan as $karyawans)
+                            <option value="{{ $karyawans->id }}">{{ $karyawans->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="tanggal">Tanggal</label>
+                  <input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="tanggal">
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="keterangan">Keterangan</label>
+                  <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan">
+                </div> 
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </form>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->

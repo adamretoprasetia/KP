@@ -43,7 +43,7 @@
                           Tambah Data Karyawan
                         </button> <br><br>
                         <div class="white-box">
-
+                    
                             <div class="table-responsive">
                                 <table class="table no-wrap">
                                     <thead>
@@ -120,8 +120,8 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                  <label for="nik">Nomor Induk Karyawan</label>
-                  <input type="text" class="form-control" name="nik" id="nik" placeholder="Nomor Induk Karyawan">
+                  <label for="nik">NIK</label>
+                  <input type="text" class="form-control" name="nik" id="nik" placeholder="NIK">
                 </div>
 
                 <div class="form-group col-md-6">

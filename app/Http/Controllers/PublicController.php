@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Karyawan;
+use App\Models\Absensi;
+use App\Models\Cuti;
+use Carbon\Carbon;
 use Auth;
 use Session;
 use Hash;
@@ -36,7 +39,7 @@ class PublicController extends Controller
         Session::flush();
     	return redirect('/');
     }
-
+    //ini buat show database 
     public function showDashboard() {
 
         $userid = Session::get('userid');
@@ -48,6 +51,35 @@ class PublicController extends Controller
         return view('dashboard', compact('karyawan'));
     }
 
+    public function showAbsensi() {
+
+        $userid = Session::get('userid');
+        if(!$userid) {
+            return redirect()->route('login')->with('error', 'Tidak bisa masuk ke halaman Absensi!');
+        }
+            $absensi = Absensi::join('karyawan', 'karyawan.id', 'absensi.karyawanid')->join('users', 'users.id', 'karyawan.userid')
+            ->select('users.name', 'absensi.tanggal', 'absensi.status','absensi.keterangan')
+            ->get();
+            //echo $absensi;
+            $karyawan = Karyawan::join('users', 'karyawan.userid', 'users.id')->select('users.name', 'karyawan.id')->get();
+            return view('absensi', compact('karyawan','absensi'));
+    }
+
+    public function showCuti() {
+
+        $userid = Session::get('userid');
+        if(!$userid) {
+            return redirect()->route('login')->with('error', 'Tidak bisa masuk ke halaman Dashboard!');  
+        }
+
+        $karyawan = Karyawan::join('users', 'karyawan.userid', 'users.id')->select('users.name', 'karyawan.id')->get();
+        $cuti = Cuti::join('karyawan', 'karyawan.id', 'cuti.karyawanid')
+        ->join('users', 'users.id', 'karyawan.userid')
+        ->get();
+        return view('cuti', compact('karyawan','cuti'));
+
+
+    }
 
     public function addDataKaryawan(Request $request) {
         // INI DARI FORM
@@ -82,8 +114,16 @@ class PublicController extends Controller
                 $karyawan->gaji_pokok = $gaji_pokok;
                 $karyawan->jabatan = $jabatan;
                 $karyawan->status = 'Aktif';
-                $karyawan->save();
-            }
+                
+            } 
+            if ($karyawan->save()) {
+                $absensi = new Absensi;
+                $absensi->karyawanid = $karyawan->id;
+                $absensi->tanggal = Carbon::now();
+                $absensi->status = 'Hadir';
+                $absensi->keterangan = '';
+                $absensi->save();
+            }    
             DB::commit();
             $succes = true;
 
@@ -101,15 +141,81 @@ class PublicController extends Controller
 
     }
 
+     public function addDataCuti(Request $request) {
+        // INI DARI FORM
+        
+        $nama = $request->nama;
+        $nik = $request->nik;
+        $tanggal = $request->tanggal;
+        $keterangan = $request->keterangan;
+        
+        // ini buat add data
+        $succes = false;
+        DB::beginTransaction();
 
+        try {
+            
+            $user = new Cuti;
+            $user->karyawanid = $nama;
+            $user->tanggal = $tanggal;
+            $user->keterangan = $keterangan;
+            $user->save();
+            
+          
+            DB::commit();
+            $succes = true;
 
-    public function showCuti() {
-
-        $userid = Session::get('userid');
-        if(!$userid) {
-            return redirect()->route('login')->with('error', 'Tidak bisa masuk ke halaman Cuti!');
+        } catch (Exception $e) {
+            DB::rollback();
+            logger()->error('Problem while saving Cuti Info: '. $e->getMessage());
         }
-            return view('cuti');
+
+        if($succes) {
+            return redirect()->route('cuti')->with('info', 'Data Saved');
+        } else {
+             return redirect()->route('cuti')->with('error', 'Data cannot Saved');   
+        }
+
+
+    }
+
+     public function addDataAbsensi(Request $request) {
+        // INI DARI FORM
+        
+        $nama = $request->nama;
+        $tanggal = $request->tanggal;
+        $status = $request->status;
+        $keterangan = $request->keterangan;
+        
+        // ini buat add data
+        $succes = false;
+        DB::beginTransaction();
+
+        try {
+            
+            $user = new Absensi;
+            $user->nama = $nama;
+            $user->tanggal = $tanggal;
+            $user->status = $status;
+            $user->keterangan = $keterangan;
+            $user->save();
+            
+          
+            DB::commit();
+            $succes = true;
+
+        } catch (Exception $e) {
+            DB::rollback();
+            logger()->error('Problem while saving Absensi Info: '. $e->getMessage());
+        }
+
+        if($succes) {
+            return redirect()->route('absensi')->with('info', 'Data Saved');
+        } else {
+             return redirect()->route('absensi')->with('error', 'Data cannot Saved');   
+        }
+
+
     }
 
     public function showGaji() {
@@ -121,14 +227,7 @@ class PublicController extends Controller
             return view('gaji');
     }
 
-    public function showAbsensi() {
-
-        $userid = Session::get('userid');
-        if(!$userid) {
-            return redirect()->route('login')->with('error', 'Tidak bisa masuk ke halaman Absensi!');
-        }
-            return view('absensi');
-    }
+    
 
     public function showUser() {
 

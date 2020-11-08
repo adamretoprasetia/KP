@@ -11,7 +11,8 @@ Route::get('logout', [PublicController::class, 'logout'])->name('logout');
 //END OF CONTROLLER LOGIN
 
 Route::post('addDataKaryawan', [PublicController::class, 'addDataKaryawan'])->name('addDataKaryawan');
-
+Route::post('addDataAbsensi', [PublicController::class, 'addDataAbsensi'])->name('addDataAbsensi');
+Route::post('addDataCuti', [PublicController::class, 'addDataCuti'])->name('addDataCuti');
 
 //VIEW
 
