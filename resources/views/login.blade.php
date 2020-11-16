@@ -55,7 +55,7 @@
                             Sign in
                         </button>
                     </div>
-                    
+
                     <div class="text-center w-full p-t-23">
                         <a href="#" class="txt1">
                             Forgot password?
@@ -65,6 +65,7 @@
             </div>
         </div>
     </div>
+
     
     
 

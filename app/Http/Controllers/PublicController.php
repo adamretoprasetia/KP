@@ -239,7 +239,5 @@ class PublicController extends Controller
         $user = User::all();
         return view('user', compact('user'));
     }
-
-
-
+    
 }

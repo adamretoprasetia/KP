@@ -58,6 +58,7 @@
                                             <th class="border-top-0">Tanggal Masuk</th>
                                             <th class="border-top-0">Tanggal Keluar</th>
                                             <th class="border-top-0">Status</th>
+                                            
                                         </tr>
                                     </thead>
                                         @foreach($karyawan as $userkaryawan)
@@ -73,6 +74,7 @@
                                         <td>{{ $userkaryawan->tanggal_masuk }} </td>
                                         <td>{{ $userkaryawan->tanggal_keluar }} </td>
                                         <td>{{ $userkaryawan->status }} </td>
+                                        <td><a href="#" class="btn btn-warning btn-sn">edit</td>
 
                                     </tbody>
                                     @endforeach

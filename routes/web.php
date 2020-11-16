@@ -16,8 +16,6 @@ Route::post('addDataCuti', [PublicController::class, 'addDataCuti'])->name('addD
 
 //VIEW
 
-
-
 Route::get('homedashboard', [PublicController::class, 'showDashboard'])->name('dashboard');
 Route::get('profile', [PublicController::class, 'showProfile'])->name('profile');
 Route::get('cuti', [PublicController::class, 'showCuti'])->name('cuti');
@@ -43,6 +41,8 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
 
+
 Route::get('/fontawesome', function () {
     return view('fontawesome');
 });
+
